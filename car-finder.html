@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+</head>
+<body>
+    <h1>Car Finder</h1>
+        <!--load a dropdown with car makes-->
+    <div id="app">
+            {{ message }}
+        
+        <select v-model="selectedMake" v-on:click="getMakeOptions()">
+            <option v-for="makeOption in makeOptions" v-bind:value="makeOption.make">
+                {{ makeOption.make }}
+            </option>
+        </select>
+        <span>Selected Make: {{ selectedMake }}</span>
+
+        <select v-model="selectedYear" v-on:click="getYearOptions()">
+            <option v-for="yearOption in yearOptions" v-bind:value="yearOption.year">
+                {{ yearOption.year }}
+            </option>
+        </select>
+        <span>Selected Year: {{ selectedYear }}</span>
+
+        <select v-model="selectedModel" v-on:click="getModelOptions()">
+            <option v-for="modelOption in modelOptions" v-bind:value="modelOption.model">
+                {{ modelOption.model }}
+            </option>
+        </select>
+        <span>Selected Model: {{ selectedModel }}</span>
+
+        <button v-on:click="getRecalls()">Get Recalls</button>
+        <div v-if="isModelSelected === 'true'">
+            <img v-bind:src="imageUrl" v-bind:alt="selectedModel" width="600" height="400" />
+            <ul id="recall-list">
+                <li v-for="recall in recalls">
+                    <ul>
+                        <li>Component: {{ recall.component }}</li>
+                        <li>Summary: {{ recall.summary }}</li>
+                        <li>Consequence: {{ recall.conequence }}</li>
+                        <li>Remedy: {{ recall.remedy }}</li>
+                        <li>Notes: {{recall.notes}}</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script src="components/_globals.js"></script>
+    <script src="vue-carfinder.js"></script>
+</body>
+</html>
